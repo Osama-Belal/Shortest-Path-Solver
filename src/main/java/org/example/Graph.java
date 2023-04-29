@@ -30,6 +30,7 @@ public class Graph {
             {
                 int x = sc.nextInt(), y = sc.nextInt();
                 int weight = sc.nextInt();
+                System.out.println(x + " " + y + " " + weight);
 
                 x--; y--;
                 this.adjList[x].add(new Edge(y, weight));
@@ -38,6 +39,7 @@ public class Graph {
         }
         catch (Exception e)
         {
+            System.out.println("No such File!");
         }
     }
 
