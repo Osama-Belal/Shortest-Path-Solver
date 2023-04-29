@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Graph {
+public class Graph
+{
     private int numofNodes;
     private int numofEdges;
     private List<Edge>[] adjList;
@@ -41,7 +42,23 @@ public class Graph {
         }
     }
 
-    public int getSize() {
+    public Graph(int numofNodes, int numofEdges, List<Pair> edgeLists)
+    {
+        this.numofNodes = numofNodes;
+        this.numofEdges = numofEdges;
+        this.adjList = new List[this.numofNodes];
+
+        for (Pair pair : edgeLists)
+        {
+            int x = pair.nodeBefore, y = pair.currentNode, weight = pair.distance;
+            x--; y--;
+            this.adjList[x].add(new Edge(y, weight));
+            this.adjList[y].add(new Edge(x, weight));
+        }
+    }
+
+    public int getSize()
+    {
         return numofNodes;
     }
 
@@ -50,7 +67,7 @@ public class Graph {
         PriorityQueue<Pair> queue = new PriorityQueue<>();
         int inf = 1000000000;
         Arrays.fill(costs, inf);
-        queue.add(new Pair(source, 0, -1));
+        queue.add(new Pair(-1, source, 0));
 
         while (!queue.isEmpty())
         {
@@ -64,7 +81,7 @@ public class Graph {
             parents[currentNode] = nodeBefore;
 
             for (Edge edge : adjList[currentNode])
-                queue.add(new Pair(edge.destination, distance + edge.weight, currentNode));
+                queue.add(new Pair(currentNode, edge.destination, distance + edge.weight));
         }
     }
 
@@ -151,7 +168,7 @@ public class Graph {
         int currentNode;
         int nodeBefore;
 
-        public Pair(int currentNode, int distance, int nodeBefore)
+        public Pair(int nodeBefore, int currentNode, int distance)
         {
             this.distance = distance;
             this.currentNode = currentNode;
