@@ -6,10 +6,11 @@ import java.util.*;
 
 public class Graph
 {
-    private int numofNodes;
-    private int numofEdges;
-    private List<Edge>[] adjList;
-    private NegativeCycleState negativeCycleState = NegativeCycleState.notCalculatedYet;
+    protected int numofNodes;
+    protected int numofEdges;
+    protected List<Edge>[] adjList;
+    protected NegativeCycleState negativeCycleState = NegativeCycleState.notCalculatedYet;
+    public Graph(){}
 
     public Graph(String path)
     {
@@ -31,7 +32,6 @@ public class Graph
             {
                 int x = sc.nextInt(), y = sc.nextInt();
                 int weight = sc.nextInt();
-                System.out.println(x + " " + y + " " + weight);
 
                 x--; y--;
                 this.adjList[x].add(new Edge(y, weight));
@@ -69,8 +69,6 @@ public class Graph
 
     public void dijkstra(int source, int[] costs, int[] parents)
     {
-        costs = new int[this.numofNodes];
-        parents = new int[this.numofNodes];
 
         PriorityQueue<Pair> queue = new PriorityQueue<>();
         int inf = 1000000000;
@@ -98,7 +96,7 @@ public class Graph
         int inf = 1000000000;
         Arrays.fill(costs, inf);
         costs[source] = 0;
-
+        parents[source] = -1;
         for(int i = 1; i <= numofNodes; i++)
         {
             for (int node = 0; node < numofNodes; node++)
@@ -113,6 +111,7 @@ public class Graph
                             return false;
                         }
                         costs[edge.destination] = costs[node] + edge.weight;
+                        parents[edge.destination] = node;
                     }
                 }
             }
@@ -123,14 +122,20 @@ public class Graph
 
     public boolean floydWarshall(int[][] costs, int[][] predecessors)
     {
-        costs = new int[this.numofNodes][this.numofNodes];
-        predecessors = new int[this.numofNodes][this.numofNodes];
-
         int inf = 1000000000;
         for (int i = 0; i < costs.length; i++)
         {
             Arrays.fill(costs[i], inf);
             costs[i][i] = 0;
+        }
+
+        for (int i = 0; i < this.numofNodes; i++)
+        {
+            for (Edge edge : this.adjList[i])
+            {
+                costs[i][edge.destination] = edge.weight;
+                predecessors[i][edge.destination] = i;
+            }
         }
 
         for(int i = 0; i < numofNodes; i++)
@@ -162,7 +167,7 @@ public class Graph
         return (this.negativeCycleState == NegativeCycleState.Cycle);
     }
 
-    private static class Edge
+    protected static class Edge
     {
         int destination;
         int weight;
@@ -173,7 +178,7 @@ public class Graph
         }
     }
 
-    private class Pair implements Comparable
+    protected class Pair implements Comparable
     {
         int distance;
         int currentNode;
@@ -194,7 +199,7 @@ public class Graph
         }
     }
 
-    private enum NegativeCycleState
+    protected enum NegativeCycleState
     {
         notCalculatedYet,
         Cycle,
