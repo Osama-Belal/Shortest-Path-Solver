@@ -4,7 +4,8 @@ package org.example;
 import java.util.Scanner;
 
 
-public class CLI {
+public class CLI
+{
     private Scanner scanner = new Scanner(System.in);
     private static Graph graph;
     private static int[] costs;
@@ -19,7 +20,8 @@ public class CLI {
 
         graph = new Graph(filePath);
 
-        while (true) {
+        while (true)
+        {
             System.out.println("Main menu:");
             System.out.println("1. Find shortest paths from source node");
             System.out.println("2. Find shortest paths between all pairs of nodes");
@@ -57,9 +59,6 @@ public class CLI {
         System.out.println("3. Floyd-Warshall");
 
         int algorithmChoice = scanner.nextInt();
-
-        costs = new int[graph.getSize()];
-        parents = new int[graph.getSize()];
 
         switch (algorithmChoice) {
             case 1:
@@ -143,9 +142,6 @@ public class CLI {
 
         int algorithmChoice = this.scanner.nextInt();
 
-        allPairsCosts = new int[graph.getSize()][graph.getSize()];
-        allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
-
         switch (algorithmChoice) {
             case 1:
                 boolean noNegativeCycle = graph.floydWarshall(allPairsCosts, allPairsPredecessors);
@@ -225,13 +221,9 @@ public class CLI {
                 //////// do i need to scan source or loop over the whole graph
                 System.out.print("Enter source node: ");
                 int source = scanner.nextInt();
-                costs = new int[graph.getSize()];
-                parents = new int[graph.getSize()];
                 hasNegativeCycle = graph.bellmanFord(source, costs, parents);
                 break;
             case 2:
-                allPairsCosts = new int[graph.getSize()][graph.getSize()];
-                allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
                 hasNegativeCycle = graph.floydWarshall(allPairsCosts, allPairsPredecessors);
                 break;
             default:
