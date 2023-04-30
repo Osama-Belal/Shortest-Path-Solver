@@ -66,6 +66,9 @@ public class Graph
 
     public void dijkstra(int source, int[] costs, int[] parents)
     {
+        costs = new int[this.numofNodes];
+        parents = new int[this.numofNodes];
+
         PriorityQueue<Pair> queue = new PriorityQueue<>();
         int inf = 1000000000;
         Arrays.fill(costs, inf);
@@ -89,6 +92,9 @@ public class Graph
 
     public boolean bellmanFord(int source, int[] costs, int[] parents)
     {
+        costs = new int[this.numofNodes];
+        parents = new int[this.numofNodes];
+
         int inf = 1000000000;
         Arrays.fill(costs, inf);
         costs[source] = 0;
@@ -117,6 +123,9 @@ public class Graph
 
     public boolean floydWarshall(int[][] costs, int[][] predecessors)
     {
+        costs = new int[this.numofNodes][this.numofNodes];
+        predecessors = new int[this.numofNodes][this.numofNodes];
+
         int inf = 1000000000;
         for (int i = 0; i < costs.length; i++)
         {
