@@ -2,10 +2,7 @@ package org.example;
 
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Graph
 {
@@ -26,6 +23,9 @@ public class Graph
             this.numofNodes = sc.nextInt();
             this.numofEdges = sc.nextInt();
             this.adjList = new List[this.numofNodes];
+            for(int i = 0; i < this.numofNodes; i++)
+                this.adjList[i] = new ArrayList<>();
+
 
             for (int i = 0; i < this.numofEdges; i++)
             {
@@ -49,6 +49,9 @@ public class Graph
         this.numofNodes = numofNodes;
         this.numofEdges = numofEdges;
         this.adjList = new List[this.numofNodes];
+
+        for(int i = 0; i < this.numofNodes; i++)
+            this.adjList[i] = new ArrayList<>();
 
         for (Pair pair : edgeLists)
         {
