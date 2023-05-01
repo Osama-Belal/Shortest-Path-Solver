@@ -207,7 +207,6 @@ public class CLI
         }
     }
 
-
     private void handleNegativeCycle() {
         System.out.println("Choose algorithm:");
         System.out.println("1. Bellman-Ford");
