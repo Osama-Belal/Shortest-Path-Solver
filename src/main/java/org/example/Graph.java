@@ -162,7 +162,7 @@ public class Graph
         {
             int[] costs = new int[numofNodes];
             int[] parents = new int[numofNodes];
-            this.bellmanFord(0, costs, parents);
+            this.bellmanFord(1, costs, parents);
         }
         return (this.negativeCycleState == NegativeCycleState.Cycle);
     }

@@ -19,6 +19,10 @@ public class CLI
         String filePath = scanner.nextLine();
 
         graph = new Graph(filePath);
+        costs = new int[graph.getSize()];
+        parents = new int[graph.getSize()];
+        allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
 
         while (true)
         {
@@ -155,7 +159,7 @@ public class CLI
                 for (int i = 0; i < graph.getSize(); i++) {
                     graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
                 }
-                System.out.printf("Shortest paths have been calculated using Dijkstra's algorithm starting from all nodes.\n");
+                System.out.println("Shortest paths have been calculated using Dijkstra's algorithm starting from all nodes.");
                 break;
             case 3:
                 for (int i = 0; i < graph.getSize(); i++) {
@@ -165,7 +169,7 @@ public class CLI
                         return;
                     }
                 }
-                System.out.printf("Shortest paths have been calculated using Bellman-Ford algorithm starting from all nodes.\n");
+                System.out.println("Shortest paths have been calculated using Bellman-Ford algorithm starting from all nodes.");
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
@@ -230,7 +234,7 @@ public class CLI
                 break;
         }
 
-        if (hasNegativeCycle) {
+        if (!hasNegativeCycle) {
             System.out.println("Graph contains negative cycle.");
         } else {
             System.out.println("Graph does not contain negative cycle.");
@@ -242,6 +246,6 @@ public class CLI
         if (i != j) {
             printPath(predecessors, i, predecessors[i][j]);
         }
-        System.out.print(j + " <- ");
+        System.out.print(j + " -> ");
     }
 }
