@@ -18,7 +18,7 @@ public class CLI
         System.out.print("Enter path to graph file: ");
         String filePath = scanner.nextLine();
 
-        graph = new Graph(filePath);
+        getGraph(filePath);
         costs = new int[graph.getSize()];
         parents = new int[graph.getSize()];
         allPairsCosts = new int[graph.getSize()][graph.getSize()];
@@ -50,6 +50,20 @@ public class CLI
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+        }
+    }
+    private  int getGraph(String filePath){
+        System.out.println("1. Directed graph");
+        System.out.println("2. Undirected graph");
+        System.out.println("3. Exit");
+        System.out.print("Enter choice: ");
+        int graphType = scanner.nextInt();
+
+        switch (graphType){
+            case 1: graph = new DirectedGraph(filePath);return 0;
+            case 2: graph = new Graph(filePath);return 0;
+            case 3: System.exit(0);
+            default: System.out.println("Invalid choice. Please try again."); return getGraph(filePath);
         }
     }
 
@@ -176,7 +190,6 @@ public class CLI
                 return;
         }
 
-        // sub-menu for path queries
         while (true) {
             System.out.println("What do you want to do now?");
             System.out.println("1. Get the cost of a path between two nodes.");
@@ -221,10 +234,7 @@ public class CLI
         boolean hasNegativeCycle = false;
         switch (algorithmChoice) {
             case 1:
-                //////// do i need to scan source or loop over the whole graph
-                System.out.print("Enter source node: ");
-                int source = scanner.nextInt();
-                hasNegativeCycle = graph.bellmanFord(source, costs, parents);
+                hasNegativeCycle = graph.bellmanFord(0, costs, parents);
                 break;
             case 2:
                 hasNegativeCycle = graph.floydWarshall(allPairsCosts, allPairsPredecessors);
