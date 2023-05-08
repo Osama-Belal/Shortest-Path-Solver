@@ -105,7 +105,7 @@ public class Graph
                 {
                     if (costs[node] + edge.weight < costs[edge.destination])
                     {
-                        if (node == numofNodes-1)
+                        if (i == numofNodes)
                         {
                             this.negativeCycleState = NegativeCycleState.Cycle;
                             return false;

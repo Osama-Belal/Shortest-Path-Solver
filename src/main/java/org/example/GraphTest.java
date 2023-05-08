@@ -529,4 +529,287 @@ public class GraphTest
         d.floydWarshall(cost, parents);
         assertFalse(d.hasNegativeCycle());
     }
+
+    @org.junit.Test
+    public void allPairs1(){
+        Graph graph = new Graph(System.getProperty("user.dir") + "\\src\\main\\java\\org\\example\\" + "undirected_positive_islands.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time"+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time"+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs1 time"+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void allPairs2(){
+        Graph graph = new Graph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "dijkstra1.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs1 time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void allPairs3(){
+        Graph graph = new Graph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "dijkstra2.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs1 time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void allPairs4(){
+        Graph graph = new Graph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "dijkstra5.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs1 time "+(t2-t1)+" ms");
+    }
+
+
+    @org.junit.Test
+    public void allPairs5(){
+        Graph graph = new Graph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "100NodesWithNoNegativeEdges.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs1 time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void allPairs6(){
+        Graph graph = new Graph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "dijkstra5.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs1 time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void allPairs7(){
+        //negative cycle
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "100NodesWithNegativeEdges.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        boolean hasNegativeCycle = graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+        if (!hasNegativeCycle) {
+            System.out.println("Graph contains negative cycle.");
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        hasNegativeCycle =true;
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+    }
+
+    @org.junit.Test
+    public void allPairs8(){
+        //no negative cycle
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "100NodesNegativeEdgesNoCycles.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        boolean hasNegativeCycle = graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+        if (!hasNegativeCycle) {
+            System.out.println("Graph contains negative cycle.");
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        hasNegativeCycle =true;
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+    }
+
+    @org.junit.Test
+    public void allPairs9(){
+        // negative cycle bellman found the cycle first
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "1000NodesWithNegativeEdges.txt");        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+        long t1 = System.currentTimeMillis();
+
+        boolean hasNegativeCycle = graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+        if (!hasNegativeCycle) {
+            System.out.println("Graph contains negative cycle.");
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
+
+        hasNegativeCycle =true;
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
+
+    }
+
 }
