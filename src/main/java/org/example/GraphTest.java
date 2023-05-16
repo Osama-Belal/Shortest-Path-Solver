@@ -19,8 +19,10 @@ public class GraphTest
                 "\\src\\main\\java\\org\\example\\" + "undirected_positive_islands.txt");
         int[] cost = new int[d1.getSize()];
         int[]  parents = new int[d1.getSize()];
+        long t1 = System.currentTimeMillis();
         d1.dijkstra(0, cost, parents);
-
+        long t2 = System.currentTimeMillis();
+        System.out.println(t2-t1);
         int[] costSolution = new int[]{0, 100, 2, 104, 101, 1000000000, 1000000000,
             1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000};
         int[] parentSolution = new int[]{-1, 0, 0, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0};
@@ -326,8 +328,10 @@ public class GraphTest
                 "\\src\\main\\java\\org\\example\\" + "undirected_positive_islands.txt");
         int[] cost = new int[d1.getSize()];
         int[]  parents = new int[d1.getSize()];
+        long t1 = System.currentTimeMillis();
         d1.bellmanFord(0, cost, parents);
-
+        long t2 = System.currentTimeMillis();
+        System.out.println(t2-t1);
         int[] costSolution = new int[]{0, 100, 2, 104, 101, 1000000000, 1000000000,
                 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000};
         int[] parentSolution = new int[]{-1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0};
@@ -389,7 +393,10 @@ public class GraphTest
                 "\\src\\main\\java\\org\\example\\" + "undirected_positive_islands.txt");
         int[][] cost = new int[d1.getSize()][d1.getSize()];
         int[][]  parents = new int[d1.getSize()][d1.getSize()];
-        d1.floydWarshall(cost, parents);
+        long t1 = System.currentTimeMillis();
+        d1.floydWarshall( cost, parents);
+        long t2 = System.currentTimeMillis();
+        System.out.println(t2-t1);
 
         int[][] costSolution = new int[][] {{0, 100, 2, 104, 101, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000 },
                 {100, 0, 102, 4, 1, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000 },
@@ -541,7 +548,7 @@ public class GraphTest
         graph.floydWarshall(allPairsCosts, allPairsPredecessors);
 
         long t2 = System.currentTimeMillis();
-        System.out.println("FloydWarshall all pairs1 time"+(t2-t1)+" ms");
+        System.out.println("FloydWarshall all pairs1 time "+(t2-t1)+" ms");
 
         t1 = System.currentTimeMillis();
         for (int i = 0; i < graph.getSize(); i++) {
@@ -552,14 +559,14 @@ public class GraphTest
             }
         }
         t2 = System.currentTimeMillis();
-        System.out.println("Bellman all pairs1 time"+(t2-t1)+" ms");
+        System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
 
         t1 = System.currentTimeMillis();
         for (int i = 0; i < graph.getSize(); i++) {
             graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
         }
         t2 = System.currentTimeMillis();
-        System.out.println("Dijkstra all pairs1 time"+(t2-t1)+" ms");
+        System.out.println("Dijkstra all pairs1 time "+(t2-t1)+" ms");
     }
 
     @org.junit.Test
@@ -786,7 +793,8 @@ public class GraphTest
     @org.junit.Test
     public void allPairs9(){
         // negative cycle bellman found the cycle first
-        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "1000NodesWithNegativeEdges.txt");        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\" + "1000NodesWithNegativeEdges.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
         int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
         System.out.println("#########################################################################");
         long t1 = System.currentTimeMillis();
@@ -809,7 +817,1138 @@ public class GraphTest
         }
         t2 = System.currentTimeMillis();
         System.out.println("Bellman all pairs1 time "+(t2-t1)+" ms");
-
     }
 
+    @org.junit.Test
+    public void compare(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "10.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra density=2 size 10 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman density=2 size 10 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall density=2 size 10 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare1(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "100.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra density=2 size 100 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman density=2 size 100 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall density=2 size 100 node "+(t2-t1)+" ms");
+    }
+    @org.junit.Test
+    public void compare2(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "500.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra density=2 size 500 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman density=2 size 500 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall density=2 size 500 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare3(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "1000.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra density=2 size 1000 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman density=2 size 1000 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall density=2 size 1000 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare4(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "750.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra density=2 size 750 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman density=2 size 750 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall density=2 size 750 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare5(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "50.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra density=2 size 50 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman density=2 size 50 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall density=2 size 50 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare6(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "1000.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra complete graph size 1000 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman complete graph size 1000 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall complete graph size 1000 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare7(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "10.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra complete graph size 10 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman complete graph size 10 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall complete graph size 10 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare8(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "100.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra complete graph size 100 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman complete graph size 100 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall complete graph size 100 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare9(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "50.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra complete graph size 50 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman complete graph size 50 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall complete graph size 50 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare10(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "500.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra complete graph size 500 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman complete graph size 500 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall complete graph size 500 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare11(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "750.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra complete graph size 750 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman complete graph size 750 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall complete graph size 750 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare12(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "10.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra 50% graph size 10 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman 50% graph size 10 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall 50% graph size 10 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare13(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "50.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra 50% graph size 50 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman 50% graph size 50 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall 50% graph size 50 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare14(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "100.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra 50% graph size 100 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman 50% graph size 100 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall 50% graph size 100 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare15(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "500.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra 50% graph size 500 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman 50% graph size 500 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall 50% graph size 500 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare16(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "750.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra 50% graph size 750 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman 50% graph size 750 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall 50% graph size 750 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare17(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "1000.txt");
+        int[] cost = new int[graph.getSize()];
+        int[]  parents = new int[graph.getSize()];
+
+        int[][] cost2 = new int[graph.getSize()][graph.getSize()];
+        int[][]  parents2 = new int[graph.getSize()][graph.getSize()];
+
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        graph.dijkstra(0, cost, parents);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Dijkstra 50% graph size 1000 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.bellmanFord(0,cost,parents);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("Bellman 50% graph size 1000 node "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        graph.floydWarshall(cost2,parents2);
+        t2 = System.currentTimeMillis();
+
+        System.out.println("FloydWarshall 50% graph size 1000 node "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare18(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "10.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs density=2 size 10 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs density=2 size 10 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs density=2 size 10 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare19(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "50.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs density=2 size 50 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs density=2 size 50 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs density=2 size 50 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare20(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "100.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs density=2 size 100 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs density=2 size 100 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs density=2 size 100 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare21(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "150.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs density=2 size 150 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs density=2 size 150 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs density=2 size 150 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare22(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "200.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs density=2 size 200 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs density=2 size 200 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs density=2 size 200 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare23(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\2\\" + "250.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs density=2 size 250 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs density=2 size 250 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs density=2 size 250 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare24(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "10.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs 50% size 10 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs 50% size 10 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs 50% size 10 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare25(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "50.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs 50% size 50 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs 50% size 50 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs 50% size 50 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare26(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "100.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs 50% size 100 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs 50% size 100 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs 50% size 100 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare27(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "150.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs 50% size 150 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs 50% size 150 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs 50% size 150 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare28(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "200.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs 50% size 200 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs 50% size 200 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs 50% size 200 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare29(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\50%\\" + "250.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs 50% size 250 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs 50% size 250 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs 50% size 250 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare30(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "10.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs complete size 10 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs complete size 10 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs complete size 10 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare31(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "50.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs complete size 50 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs complete size 50 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs complete size 50 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare32(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "100.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs complete size 100 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs complete size 100 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs complete size 100 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare33(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "150.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs complete size 150 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs complete size 150 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs complete size 150 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare34(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "200.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs complete size 200 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs complete size 200 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs complete size 200 node time "+(t2-t1)+" ms");
+    }
+
+    @org.junit.Test
+    public void compare35(){
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "250.txt");
+        int[][] allPairsCosts = new int[graph.getSize()][graph.getSize()];
+        int[][] allPairsPredecessors = new int[graph.getSize()][graph.getSize()];
+        System.out.println("#########################################################################");
+
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            graph.dijkstra(i, allPairsCosts[i], allPairsPredecessors[i]);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("Dijkstra all pairs complete size 250 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+        for (int i = 0; i < graph.getSize(); i++) {
+            boolean hasNegativeCycle = graph.bellmanFord(i, allPairsCosts[i], allPairsPredecessors[i]);
+            if (!hasNegativeCycle) {
+                System.out.println("Graph contains negative cycle.");
+                break;
+            }
+        }
+        t2 = System.currentTimeMillis();
+        System.out.println("Bellman all pairs complete size 250 node time "+(t2-t1)+" ms");
+
+        t1 = System.currentTimeMillis();
+
+        graph.floydWarshall(allPairsCosts, allPairsPredecessors);
+
+        t2 = System.currentTimeMillis();
+        System.out.println("FloydWarshall all pairs complete size 250 node time "+(t2-t1)+" ms");
+    }
 }
