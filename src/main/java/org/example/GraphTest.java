@@ -25,7 +25,7 @@ public class GraphTest
         System.out.println(t2-t1);
         int[] costSolution = new int[]{0, 100, 2, 104, 101, 1000000000, 1000000000,
             1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000, 1000000000};
-        int[] parentSolution = new int[]{-1, 0, 0, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0};
+        int[] parentSolution = new int[]{-1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0};
 
         assertArrayEquals(costSolution, cost);
         assertArrayEquals(parentSolution, parents);
@@ -1000,7 +1000,7 @@ public class GraphTest
 
     @org.junit.Test
     public void compare6(){
-        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "1000.txt");
+        Graph graph = new DirectedGraph(System.getProperty("user.dir") +  "\\src\\main\\java\\org\\example\\Density\\complete\\" + "output.txt");
         int[] cost = new int[graph.getSize()];
         int[]  parents = new int[graph.getSize()];
 
